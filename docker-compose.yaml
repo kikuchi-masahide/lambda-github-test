@@ -1,0 +1,7 @@
+version: '3'
+services:
+  lambda:
+    build: ./
+    tty: true
+    volumes:
+      - ./mnt:/mnt
