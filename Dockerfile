@@ -1,9 +1,7 @@
-FROM amazonlinux:2
+FROM python:3.9
 
-RUN yum -y update
+RUN pip3 install --upgrade pip
 
-RUN yum install -y python3
+WORKDIR /app
 
-RUN yum install -y zip
-
-WORKDIR /mnt
+CMD ["python3"]

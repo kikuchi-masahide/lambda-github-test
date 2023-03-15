@@ -1,2 +1,2 @@
 #! /bin/bash
-docker-compose exec lambda bash
+docker-compose exec app bash

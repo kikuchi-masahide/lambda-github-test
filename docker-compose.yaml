@@ -1,7 +1,7 @@
 version: '3'
 services:
-  lambda:
-    build: ./
+  app:
+    build: .
     tty: true
     volumes:
-      - ./mnt:/mnt
+      - ./app:/app
