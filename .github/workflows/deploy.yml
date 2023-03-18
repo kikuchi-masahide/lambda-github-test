@@ -2,7 +2,7 @@ name: AWS Lambda Deploy
 on:
   push:
     branches:
-      - master
+      - feature/single-lambda-test
 jobs:
   deploy:
     runs-on: ubuntu-latest
