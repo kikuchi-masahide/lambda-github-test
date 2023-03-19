@@ -37,7 +37,9 @@ Github Actionsのsecretsを設定することにより、mainブランチにpush
 
 ### deploy対象
 
-appフォルダ
+appフォルダ内の各フォルダ
+
+例えばapp/github-action-testはラムダgithub-action-testにデプロイ
 
 requirements.txt内のパッケージもgithub actions上で一時的にインストールされ、自動でアップロードされる
 
@@ -51,3 +53,7 @@ requirements.txt内のパッケージもgithub actions上で一時的にイン�
 |  AWS_ACCESS_KEY_ID  |  アクセスキーID  |
 |  AWS_SECRET_ACCESS_KEY  |  シークレットアクセスキー  |
 |  FUNCTION_NAME  |  lambda関数名  |
+
+### lambdaの追加
+
+./add-lambda.shを実行し、lambda名を入力。
