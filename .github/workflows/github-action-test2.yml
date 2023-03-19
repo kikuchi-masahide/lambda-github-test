@@ -1,11 +1,9 @@
-name: Deploy to AWS Lambda(github-action-test2)
+name: Deploy to github-action-test2
 
 on:
   push:
     branches:
       - feature/multi-lambda-test
-    paths:
-      - 'app/github-action-test2/**'
 
 jobs:
   deploy:
@@ -14,6 +12,30 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    
-    - name: test
-      run: cat app/github-action-test2/lambda_function.py
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd app/github-action-test2
+        pip install -r requirements.txt -t .
+
+    - name: Package Lambda function
+      run: |
+        cd app/github-action-test2
+        zip -r lambda_function.zip .
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
+
+    - name: Deploy to AWS Lambda
+      run: |
+        aws lambda update-function-code --function-name github-action-test2 --zip-file fileb://app/github-action-test2/lambda_function.zip
