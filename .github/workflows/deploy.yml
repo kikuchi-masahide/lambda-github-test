@@ -1,36 +1,40 @@
-name: AWS Lambda Deploy 
+name: Deploy to AWS Lambda
+
 on:
   push:
     branches:
-      - feature/single-lambda-test
+      - develop
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: configure-aws-credentials
-        uses: aws-actions/configure-aws-credentials@master
-        with:
-          aws-region: ${{ secrets.AWS_REGION }}
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          role-session-name: GitHubActions
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
 
-      - name: get-caller-identity is allowed to run on role.
-        run: aws sts get-caller-identity
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        cd app
+        pip install -r requirements.txt -t .
 
-      - name: setup-python
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
+    - name: Package Lambda function
+      run: |
+        zip -r lambda_function.zip .
 
-      - name: lambda update
-        run: |
-          pip3 install awscli
-          cd app && zip -r package.zip ./* -x "*requirements.txt*"
-          aws lambda update-function-code --function-name test-http --zip-file fileb://package.zip --publish
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
+
+    - name: Deploy to AWS Lambda
+      run: |
+        aws lambda update-function-code --function-name {{ secrets.FUNCTION_NAME }} --zip-file fileb://lambda_function.zip
