@@ -1,4 +1,4 @@
-#github-action-test github-action-test
+#github-action-test
 import requests
 
 def lambda_handler(event, context):
