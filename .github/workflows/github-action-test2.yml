@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - feature/multi-lambda-test
+    paths:
+      - 'lambda/app/github-action-test2'
 
 jobs:
   deploy:
@@ -21,12 +23,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        cd app/github-action-test2
+        cd lambda/app/github-action-test2
         pip install -r requirements.txt -t .
 
     - name: Package Lambda function
       run: |
-        cd app/github-action-test2
+        cd lambda/app/github-action-test2
         zip -r lambda_function.zip .
 
     - name: Configure AWS Credentials
@@ -38,4 +40,4 @@ jobs:
 
     - name: Deploy to AWS Lambda
       run: |
-        aws lambda update-function-code --function-name github-action-test2 --zip-file fileb://app/github-action-test2/lambda_function.zip
+        aws lambda update-function-code --function-name github-action-test2 --zip-file fileb://lambda/app/github-action-test2/lambda_function.zip
