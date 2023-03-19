@@ -1,0 +1,19 @@
+name: Deploy to AWS Lambda(github-action-test)
+
+on:
+  push:
+    branches:
+      - feature/multi-lambda-test
+    paths:
+      - 'app/github-action-test/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: test
+      run: cat app/github-action-test/lambda_function.py
