@@ -5,7 +5,7 @@ on:
     branches:
       - feature/multi-lambda-test
     paths:
-      - 'lambda/app/FUNCTION_NAME'
+      - 'lambda/app/FUNCTION_NAME/**'
 
 jobs:
   deploy:

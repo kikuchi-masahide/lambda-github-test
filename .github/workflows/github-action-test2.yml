@@ -5,7 +5,7 @@ on:
     branches:
       - feature/multi-lambda-test
     paths:
-      - 'lambda/app/github-action-test2'
+      - 'lambda/app/github-action-test2/**'
 
 jobs:
   deploy:
