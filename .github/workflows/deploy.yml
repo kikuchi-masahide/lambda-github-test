@@ -3,7 +3,7 @@ name: Deploy to AWS Lambda
 on:
   push:
     branches:
-      - feature/single-lambda-test
+      - main
 
 jobs:
   deploy:
