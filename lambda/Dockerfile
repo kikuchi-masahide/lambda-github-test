@@ -3,6 +3,8 @@ FROM python:3.9-slim
 
 RUN pip3 install --upgrade pip
 
+RUN pip3 install aws-sam-cli
+
 WORKDIR /app
 
 CMD ["python3"]
