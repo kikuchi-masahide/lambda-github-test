@@ -43,5 +43,5 @@ jobs:
     - name: Deploy package to lambda
       run: |
         cd lambda/app/lambda1
-        sam deploy --template-file packaged.yaml --stack-name lambda1 --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }}
+        sam deploy --template-file packaged.yaml --stack-name lambda1 --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} -no-confirm-changeset
 
