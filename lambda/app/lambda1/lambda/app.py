@@ -1,4 +1,8 @@
 import json
 
 def lambda_handler(event, context):
-    print(event)
+    try:
+        print(event)
+    except Exception as e:
+        print(f'error:{str(e)}')
+
