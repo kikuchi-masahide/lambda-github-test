@@ -1,11 +1,11 @@
-name: Deploy to FUNCTION_NAME
+name: Deploy to lambda1
 
 on:
   push:
     branches:
       - feature/aws-sam
     paths:
-      - 'lambda/app/FUNCTION_NAME/**'
+      - 'lambda/app/lambda1/**'
 
 jobs:
   deploy:
@@ -23,12 +23,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        cd lambda/app/FUNCTION_NAME
+        cd lambda/app/lambda1/lambda
         pip install -r requirements.txt -t .
 
     - name: Package Lambda function
       run: |
-        cd lambda/app/FUNCTION_NAME
+        cd lambda/app/lambda1/lambda
         zip -r lambda_function.zip .
 
     - name: Configure AWS Credentials
@@ -40,4 +40,4 @@ jobs:
 
     - name: Deploy to AWS Lambda
       run: |
-        aws lambda update-function-code --function-name FUNCTION_NAME --zip-file fileb://lambda/app/FUNCTION_NAME/lambda_function.zip
+        aws lambda update-function-code --function-name lambda1 --zip-file fileb://lambda/app/lambda1/lambda/lambda_function.zip

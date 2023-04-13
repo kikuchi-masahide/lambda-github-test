@@ -4,4 +4,9 @@ services:
     build: .
     tty: true
     volumes:
-      - ./app:/app
+      - type: bind
+        source: ./app
+        target: /app
+      - type: bind
+        source: ../.github/workflows
+        target: /workflows
