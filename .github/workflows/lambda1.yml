@@ -33,6 +33,6 @@ jobs:
     - name: Deploy
       run: |
         cd lambda/app/lambda1
-        sam build
-        sam package --template-file template.yaml --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} --output-template-file packaged.yaml
+        sam build --use-container
+        sam package --template-file template.yaml --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} --output-template-file packaged.yaml --region ap-northeast-1
         sam deploy --template-file packaged.yaml --stack-name lambda1 --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} --no-confirm-changeset
