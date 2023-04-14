@@ -13,5 +13,8 @@ cd ../../lambda/app
 mkdir $name
 cd $name
 unzip ../../template.zip -d .
-#stack名の変更
+# stack名の変更
 sed -i "" "s/aws-sam-example/$name/g" samconfig.toml
+# 関数名の変更
+sed -i "" "s/aws-sam-example/$name/g" template.debug.yaml
+sed -i "" "s/aws-sam-example/$name/g" template.deploy.yaml

@@ -21,6 +21,7 @@ Resources:
       CodeUri: lambda/
       Handler: app.lambda_handler
       Runtime: python3.9
+      FunctionName: lambda1
       Architectures:
       - x86_64
       Events:
