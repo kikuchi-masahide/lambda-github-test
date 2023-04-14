@@ -1,1 +1,3 @@
 /app/*/.aws-sam/*
+/dynamodb/data/*
+/awscli/bin/*

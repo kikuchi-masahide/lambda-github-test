@@ -24,7 +24,6 @@ while getopts :s:e: optKey; do
   esac
 done
 
-echo "$stack"
 # -stackオプションが必須なので、値がセットされているかチェック
 if [ -z "$stack" ]; then
   echo "-stackオプションは必須です。"
@@ -39,8 +38,8 @@ sam build --use-container -t template.debug.yaml
 
 # -eオプションが付与されていれば、オプション値を変数evに受け取り、sam local invoke -eを実行
 if [ -n "$ev" ]; then
-  sam local invoke -e "$ev"
+  sam local invoke --docker-network lambda-local -e "$ev"
 else
   # -eオプションが付与されていなければ、sam local invokeを実行
-  sam local invoke
+  sam local invoke --docker-network lambda-local 
 fi

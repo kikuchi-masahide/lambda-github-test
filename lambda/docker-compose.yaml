@@ -1,12 +1,26 @@
 version: '3'
 services:
-  app:
-    build: .
-    tty: true
+  dynamodb-local:
+    container_name: dynamodb
+    build: dynamodb/
+    ports:
+      - 8000:8000
+    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
     volumes:
-      - type: bind
-        source: ./app
-        target: /app
-      - type: bind
-        source: ../.github/workflows
-        target: /workflows
+      - ./dynamodb/data:/data
+    networks:
+      - lambda-local
+    tty: true
+  awscli:
+    build: awscli
+    entrypoint: [""]
+    tty: true
+    command:
+        - /bin/sh
+    volumes:
+        - ./awscli/bin:/usr/app
+    networks:
+        - lambda-local
+networks:
+  lambda-local:
+    external: true
