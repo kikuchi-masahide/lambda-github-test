@@ -33,5 +33,5 @@ jobs:
     - name: Deploy
       run: |
         cd lambda/app/lambda1
-        sam build --use-container
+        sam build --use-container -t template.deploy.yaml
         sam deploy --stack-name lambda1 --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} --no-confirm-changeset
