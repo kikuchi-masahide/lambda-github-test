@@ -8,7 +8,7 @@ services:
     volumes:
       - "./localstack/data:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./mnt:/opt/code/localstack/mnt"
+      - "./localstack/mnt:/opt/code/localstack/mnt"
     networks:
       - container-link
     hostname: localstack.local
