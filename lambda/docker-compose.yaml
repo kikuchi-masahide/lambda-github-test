@@ -1,26 +1,22 @@
 version: '3'
 services:
-  dynamodb-local:
-    container_name: dynamodb
-    build: dynamodb/
+  localstack:
+    container_name: "localstack"
+    build: localstack/
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "./localstack/data:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./mnt:/opt/code/localstack/mnt"
+    networks:
+      - container-link
+    hostname: localstack.local
     ports:
-      - 8000:8000
-    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
-    volumes:
-      - ./dynamodb/data:/data
-    networks:
-      - lambda-local
+      - 4566:4566
     tty: true
-  awscli:
-    build: awscli
-    entrypoint: [""]
-    tty: true
-    command:
-        - /bin/sh
-    volumes:
-        - ./awscli/bin:/usr/app
-    networks:
-        - lambda-local
+
 networks:
-  lambda-local:
-    external: true
+  container-link:
+    name: localstack.internal
+  

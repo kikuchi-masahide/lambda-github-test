@@ -38,8 +38,8 @@ sam build --use-container -t template.debug.yaml
 
 # -eオプションが付与されていれば、オプション値を変数evに受け取り、sam local invoke -eを実行
 if [ -n "$ev" ]; then
-  sam local invoke --docker-network lambda-local -e "$ev"
+  sam local invoke --docker-network localstack.internal -e "$ev"
 else
   # -eオプションが付与されていなければ、sam local invokeを実行
-  sam local invoke --docker-network lambda-local 
+  sam local invoke --docker-network localstack.internal 
 fi
