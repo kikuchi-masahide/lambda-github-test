@@ -6,7 +6,9 @@ on:
       - main
     paths:
       - 'lambda/app/FUNCTION_NAME/**'
-
+      - '!lambda/app/FUNCTION_NAME/events/**'
+      - '!lambda/app/FUNCTION_NAME/template.debug.yaml'
+      - '!lambda/app/FUNCTION_NAME/tests/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -7,20 +7,42 @@
 
 ### デバッグの開始
 
-- dynamodb、S3をローカルで起動する場合、
+- localstackの起動。
     - docker(localstack)を起動:`./docker-start.sh`
     - `./docker-login.sh`
-    - ディレクトリを変更せずに、
-
+    - dynamodb、S3をローカルで起動する場合、ディレクトリを変更せずに
         ```python3 table_setup.py```
 
         ```python3 s3_setup.py```
 
         等を実行
 
-    dynamodb、S3等と連携しないラムダの場合、この手順は不要
+        dynamodb、S3等と連携しないラムダの場合、この手順は不要
+    
+    - parameter storeの設定。```./parameter-store.sh```を実行。
+
 - コンテナにログインせずに`./debug.sh -s (デバッグするラムダ名)`<br/>
 lambdaに渡すイベント(エントリポイントの引数event)を指定する場合、`-e`オプションでjsonを指定。`-e events/test.json`など。
+
+環境変数を使用する場合、template.debug.yamlに追記する。具体的には、以下のようにEnvironmentの部分を追記
+```
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      ...
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+      Environment:
+        Variables:
+          debug: "true"
+          KEY1: "VALUE1"
+          KEY2: "VALUE2"
+```
 
 ### 管理するラムダを追加したい
 

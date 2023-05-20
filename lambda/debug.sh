@@ -34,12 +34,12 @@ fi
 cd "app/$stack"
 
 # sam buildコマンドを実行
-sam build --use-container -t template.debug.yaml
+sam build --use-container -t template.debug.yaml --skip-pull-image
 
 # -eオプションが付与されていれば、オプション値を変数evに受け取り、sam local invoke -eを実行
 if [ -n "$ev" ]; then
-  sam local invoke --docker-network localstack.internal -e "$ev"
+  sam local invoke --docker-network localstack.internal --parameter-overrides debug=true -e "$ev"
 else
   # -eオプションが付与されていなければ、sam local invokeを実行
-  sam local invoke --docker-network localstack.internal 
+  sam local invoke --docker-network localstack.internal --parameter-overrides debug=true
 fi
