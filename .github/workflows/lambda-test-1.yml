@@ -1,14 +1,14 @@
-name: Deploy to LAMBDA_NAME
+name: Deploy to lambda-test-1
 
 on:
   push:
     branches:
-      - main
+      - feature/layer-test
     paths:
-      - 'lambda/app/LAMBDA_NAME/**'
-      - '!lambda/app/LAMBDA_NAME/events/**'
-      - '!lambda/app/LAMBDA_NAME/template.debug.yaml'
-      - '!lambda/app/LAMBDA_NAME/tests/**'
+      - 'lambda/app/lambda-test-1/**'
+      - '!lambda/app/lambda-test-1/events/**'
+      - '!lambda/app/lambda-test-1/template.debug.yaml'
+      - '!lambda/app/lambda-test-1/tests/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -34,6 +34,6 @@ jobs:
 
     - name: Deploy
       run: |
-        cd lambda/app/LAMBDA_NAME
+        cd lambda/app/lambda-test-1
         sam build --use-container -t template.deploy.yaml
-        sam deploy --stack-name LAMBDA_NAME --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} --no-confirm-changeset
+        sam deploy --stack-name lambda-test-1 --s3-bucket ${{ secrets.PACKAGE_S3_BUCKET }} --no-confirm-changeset
