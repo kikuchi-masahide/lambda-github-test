@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+    Tracing: Active
+Resources:
+  Layer:
+    Type: AWS::Serverless::LayerVersion # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      ContentUri: code/
+      LayerName: layer-test-1
+    Metadata:
+      BuildMethod: python3.9
+  Permission:
+    Type: AWS::Lambda::LayerVersionPermission
+    Properties:
+      Action: lambda:GetLayerVersion
+      LayerVersionArn: !Ref Layer
+      Principal: '*'
+
+
+Outputs:
+  layer-test-1Arn:
+    Value: !Ref Layer
+    Export:
+      Name: layer-test-1Arn
