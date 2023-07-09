@@ -14,7 +14,7 @@ mkdir $name
 cd $name
 unzip ../../lambda_template.zip -d .
 # stack名の変更
-sed -i "" "s/FUNCTION_NAME/$name/g" samconfig.toml
+sed -i "s/FUNCTION_NAME/$name/g" samconfig.toml
 # 関数名の変更
-sed -i "" "s/FUNCTION_NAME/$name/g" template.debug.yaml
-sed -i "" "s/FUNCTION_NAME/$name/g" template.deploy.yaml
+sed -i "s/FUNCTION_NAME/$name/g" template.debug.yaml
+sed -i "s/FUNCTION_NAME/$name/g" template.deploy.yaml
