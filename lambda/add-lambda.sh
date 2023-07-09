@@ -4,7 +4,7 @@ echo "lambda名: "
 read name
 
 # github-actionテンプレートのコピー
-cp base.yml "../.github/workflows/$name.yml"
+cp deploy_base_lambda.yml "../.github/workflows/$name.yml"
 cd ../.github/workflows
 sed -i "" "s/FUNCTION_NAME/${name}/g" $name.yml
 cd ../../lambda/app
@@ -12,9 +12,9 @@ cd ../../lambda/app
 # aws samテンプレートのコピー
 mkdir $name
 cd $name
-unzip ../../template.zip -d .
+unzip ../../lambda_template.zip -d .
 # stack名の変更
-sed -i "" "s/aws-sam-example/$name/g" samconfig.toml
+sed -i "" "s/FUNCTION_NAME/$name/g" samconfig.toml
 # 関数名の変更
-sed -i "" "s/aws-sam-example/$name/g" template.debug.yaml
-sed -i "" "s/aws-sam-example/$name/g" template.deploy.yaml
+sed -i "" "s/FUNCTION_NAME/$name/g" template.debug.yaml
+sed -i "" "s/FUNCTION_NAME/$name/g" template.deploy.yaml
